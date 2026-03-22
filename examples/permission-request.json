@@ -1,0 +1,266 @@
+{
+  "version": "mission-graph/0.1",
+  "standard": "erc7715-style mission permission request",
+  "track": "Best Use of Delegations",
+  "missionId": "mg-47bc0c675b",
+  "network": "base-sepolia",
+  "rootDelegation": {
+    "delegate": "planner-agent",
+    "budgetUsdc": 1200,
+    "maxSubdelegationDepth": 1,
+    "caveats": [
+      {
+        "kind": "spend-limit",
+        "amountUsdc": 1200,
+        "token": "USDC",
+        "reason": "Task budget is capped at 1200 USDC."
+      },
+      {
+        "kind": "expiry",
+        "deadline": "2026-03-21T09:00:00.000Z",
+        "reason": "Authority expires automatically at the mission deadline."
+      },
+      {
+        "kind": "fan-out",
+        "limit": 5,
+        "reason": "Planner can create at most 5 child delegations."
+      }
+    ]
+  },
+  "subdelegations": [
+    {
+      "taskId": "reserve-venue",
+      "delegate": "venue-agent",
+      "budgetUsdc": 400,
+      "dependsOn": [],
+      "caveats": [
+        {
+          "kind": "spend-limit",
+          "amountUsdc": 400,
+          "token": "USDC",
+          "reason": "Task budget is capped at 400 USDC."
+        },
+        {
+          "kind": "target-allowlist",
+          "targets": [
+            "venue.safe"
+          ],
+          "reason": "Only approved targets can receive funds or calls."
+        },
+        {
+          "kind": "method-allowlist",
+          "methods": [
+            "transfer"
+          ],
+          "reason": "Only approved method families are executable."
+        },
+        {
+          "kind": "expiry",
+          "deadline": "2026-03-21T09:00:00.000Z",
+          "reason": "Authority expires automatically at the mission deadline."
+        },
+        {
+          "kind": "dependency",
+          "dependsOn": [],
+          "reason": "Task cannot execute until prerequisite tasks are marked complete."
+        },
+        {
+          "kind": "artifact-hash",
+          "required": true,
+          "reason": "A proof-of-completion hash is required before redemption."
+        }
+      ]
+    },
+    {
+      "taskId": "catering",
+      "delegate": "logistics-agent",
+      "budgetUsdc": 250,
+      "dependsOn": [
+        "reserve-venue"
+      ],
+      "caveats": [
+        {
+          "kind": "spend-limit",
+          "amountUsdc": 250,
+          "token": "USDC",
+          "reason": "Task budget is capped at 250 USDC."
+        },
+        {
+          "kind": "target-allowlist",
+          "targets": [
+            "catering.vendor"
+          ],
+          "reason": "Only approved targets can receive funds or calls."
+        },
+        {
+          "kind": "method-allowlist",
+          "methods": [
+            "transfer"
+          ],
+          "reason": "Only approved method families are executable."
+        },
+        {
+          "kind": "expiry",
+          "deadline": "2026-03-21T09:00:00.000Z",
+          "reason": "Authority expires automatically at the mission deadline."
+        },
+        {
+          "kind": "dependency",
+          "dependsOn": [
+            "reserve-venue"
+          ],
+          "reason": "Task cannot execute until prerequisite tasks are marked complete."
+        },
+        {
+          "kind": "artifact-hash",
+          "required": false,
+          "reason": "A proof-of-completion hash is required before redemption."
+        }
+      ]
+    },
+    {
+      "taskId": "designer-stipend",
+      "delegate": "media-agent",
+      "budgetUsdc": 150,
+      "dependsOn": [],
+      "caveats": [
+        {
+          "kind": "spend-limit",
+          "amountUsdc": 150,
+          "token": "USDC",
+          "reason": "Task budget is capped at 150 USDC."
+        },
+        {
+          "kind": "target-allowlist",
+          "targets": [
+            "designer.wallet"
+          ],
+          "reason": "Only approved targets can receive funds or calls."
+        },
+        {
+          "kind": "method-allowlist",
+          "methods": [
+            "transfer"
+          ],
+          "reason": "Only approved method families are executable."
+        },
+        {
+          "kind": "expiry",
+          "deadline": "2026-03-21T09:00:00.000Z",
+          "reason": "Authority expires automatically at the mission deadline."
+        },
+        {
+          "kind": "dependency",
+          "dependsOn": [],
+          "reason": "Task cannot execute until prerequisite tasks are marked complete."
+        },
+        {
+          "kind": "artifact-hash",
+          "required": true,
+          "reason": "A proof-of-completion hash is required before redemption."
+        }
+      ]
+    },
+    {
+      "taskId": "publish-recap",
+      "delegate": "media-agent",
+      "budgetUsdc": 100,
+      "dependsOn": [
+        "designer-stipend"
+      ],
+      "caveats": [
+        {
+          "kind": "spend-limit",
+          "amountUsdc": 100,
+          "token": "USDC",
+          "reason": "Task budget is capped at 100 USDC."
+        },
+        {
+          "kind": "target-allowlist",
+          "targets": [
+            "recap.registry"
+          ],
+          "reason": "Only approved targets can receive funds or calls."
+        },
+        {
+          "kind": "method-allowlist",
+          "methods": [
+            "registerCid"
+          ],
+          "reason": "Only approved method families are executable."
+        },
+        {
+          "kind": "expiry",
+          "deadline": "2026-03-21T09:00:00.000Z",
+          "reason": "Authority expires automatically at the mission deadline."
+        },
+        {
+          "kind": "dependency",
+          "dependsOn": [
+            "designer-stipend"
+          ],
+          "reason": "Task cannot execute until prerequisite tasks are marked complete."
+        },
+        {
+          "kind": "artifact-hash",
+          "required": true,
+          "reason": "A proof-of-completion hash is required before redemption."
+        }
+      ]
+    },
+    {
+      "taskId": "attendee-refunds",
+      "delegate": "finance-agent",
+      "budgetUsdc": 300,
+      "dependsOn": [
+        "reserve-venue",
+        "publish-recap"
+      ],
+      "caveats": [
+        {
+          "kind": "spend-limit",
+          "amountUsdc": 300,
+          "token": "USDC",
+          "reason": "Task budget is capped at 300 USDC."
+        },
+        {
+          "kind": "target-allowlist",
+          "targets": [
+            "refund.vault"
+          ],
+          "reason": "Only approved targets can receive funds or calls."
+        },
+        {
+          "kind": "method-allowlist",
+          "methods": [
+            "batchTransfer"
+          ],
+          "reason": "Only approved method families are executable."
+        },
+        {
+          "kind": "expiry",
+          "deadline": "2026-03-21T09:00:00.000Z",
+          "reason": "Authority expires automatically at the mission deadline."
+        },
+        {
+          "kind": "dependency",
+          "dependsOn": [
+            "reserve-venue",
+            "publish-recap"
+          ],
+          "reason": "Task cannot execute until prerequisite tasks are marked complete."
+        },
+        {
+          "kind": "artifact-hash",
+          "required": false,
+          "reason": "A proof-of-completion hash is required before redemption."
+        }
+      ]
+    }
+  ],
+  "designNotes": [
+    "The mission root is intent-scoped, not wallet-wide.",
+    "Each worker receives only the caveats needed for one task.",
+    "Dependency and artifact caveats are the novel permission layer in this repo."
+  ]
+}

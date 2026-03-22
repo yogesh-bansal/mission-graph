@@ -1,0 +1,82 @@
+[
+  {
+    "action": {
+      "taskId": "reserve-venue",
+      "role": "venue-agent",
+      "target": "venue.safe",
+      "method": "transfer",
+      "amountUsdc": 350,
+      "completedTaskIds": [],
+      "proofHash": "poster-quote-ack",
+      "now": "2026-03-18T10:00:00Z"
+    },
+    "result": {
+      "allowed": true,
+      "reasons": [],
+      "taskId": "reserve-venue",
+      "role": "venue-agent"
+    }
+  },
+  {
+    "action": {
+      "taskId": "catering",
+      "role": "logistics-agent",
+      "target": "catering.vendor",
+      "method": "transfer",
+      "amountUsdc": 300,
+      "completedTaskIds": [],
+      "now": "2026-03-18T10:05:00Z"
+    },
+    "result": {
+      "allowed": false,
+      "reasons": [
+        "Requested amount exceeds the task budget caveat.",
+        "Dependency not met: reserve-venue."
+      ],
+      "taskId": "catering",
+      "role": "logistics-agent"
+    }
+  },
+  {
+    "action": {
+      "taskId": "publish-recap",
+      "role": "media-agent",
+      "target": "unknown.target",
+      "method": "registerCid",
+      "amountUsdc": 10,
+      "completedTaskIds": [
+        "designer-stipend"
+      ],
+      "proofHash": "recap-ipfs-hash",
+      "now": "2026-03-19T12:00:00Z"
+    },
+    "result": {
+      "allowed": false,
+      "reasons": [
+        "Target is not in the task allowlist."
+      ],
+      "taskId": "publish-recap",
+      "role": "media-agent"
+    }
+  },
+  {
+    "action": {
+      "taskId": "attendee-refunds",
+      "role": "finance-agent",
+      "target": "refund.vault",
+      "method": "batchTransfer",
+      "amountUsdc": 280,
+      "completedTaskIds": [
+        "reserve-venue",
+        "publish-recap"
+      ],
+      "now": "2026-03-20T09:00:00Z"
+    },
+    "result": {
+      "allowed": true,
+      "reasons": [],
+      "taskId": "attendee-refunds",
+      "role": "finance-agent"
+    }
+  }
+]

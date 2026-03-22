@@ -1,0 +1,456 @@
+{
+  "missionId": "mg-47bc0c675b",
+  "createdAt": "2026-03-17T12:00:00.000Z",
+  "mission": {
+    "title": "Nairobi Build Sprint",
+    "owner": "Community lead",
+    "network": "base-sepolia",
+    "requestedAt": "2026-03-18T09:00:00Z",
+    "objective": "Run a 48-hour community build sprint with venue, logistics, creative, and attendee support handled by specialized agents without giving any one agent blanket wallet power.",
+    "totalBudgetUsdc": 1200,
+    "durationHours": 72,
+    "token": "USDC",
+    "planner": {
+      "delegate": "planner-agent",
+      "maxFanout": 5,
+      "maxSubdelegationDepth": 1
+    },
+    "roles": [
+      {
+        "id": "planner-agent",
+        "label": "Planner Agent"
+      },
+      {
+        "id": "venue-agent",
+        "label": "Venue Agent"
+      },
+      {
+        "id": "logistics-agent",
+        "label": "Logistics Agent"
+      },
+      {
+        "id": "media-agent",
+        "label": "Media Agent"
+      },
+      {
+        "id": "finance-agent",
+        "label": "Finance Agent"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "reserve-venue",
+        "title": "Reserve venue",
+        "role": "venue-agent",
+        "budgetUsdc": 400,
+        "dependsOn": [],
+        "allowedTargets": [
+          "venue.safe"
+        ],
+        "allowedMethods": [
+          "transfer"
+        ],
+        "requiresArtifactHash": true,
+        "allowSubdelegation": false,
+        "description": "Pay the venue deposit after quote approval."
+      },
+      {
+        "id": "catering",
+        "title": "Handle catering",
+        "role": "logistics-agent",
+        "budgetUsdc": 250,
+        "dependsOn": [
+          "reserve-venue"
+        ],
+        "allowedTargets": [
+          "catering.vendor"
+        ],
+        "allowedMethods": [
+          "transfer"
+        ],
+        "requiresArtifactHash": false,
+        "allowSubdelegation": false,
+        "description": "Purchase food and drinks only after the venue is secured."
+      },
+      {
+        "id": "designer-stipend",
+        "title": "Pay designer stipend",
+        "role": "media-agent",
+        "budgetUsdc": 150,
+        "dependsOn": [],
+        "allowedTargets": [
+          "designer.wallet"
+        ],
+        "allowedMethods": [
+          "transfer"
+        ],
+        "requiresArtifactHash": true,
+        "allowSubdelegation": false,
+        "description": "Release designer stipend only when poster assets are delivered."
+      },
+      {
+        "id": "publish-recap",
+        "title": "Publish recap",
+        "role": "media-agent",
+        "budgetUsdc": 100,
+        "dependsOn": [
+          "designer-stipend"
+        ],
+        "allowedTargets": [
+          "recap.registry"
+        ],
+        "allowedMethods": [
+          "registerCid"
+        ],
+        "requiresArtifactHash": true,
+        "allowSubdelegation": false,
+        "description": "Publish the recap only after the creative artifact exists."
+      },
+      {
+        "id": "attendee-refunds",
+        "title": "Process attendee refunds",
+        "role": "finance-agent",
+        "budgetUsdc": 300,
+        "dependsOn": [
+          "reserve-venue",
+          "publish-recap"
+        ],
+        "allowedTargets": [
+          "refund.vault"
+        ],
+        "allowedMethods": [
+          "batchTransfer"
+        ],
+        "requiresArtifactHash": false,
+        "allowSubdelegation": false,
+        "description": "Refund participants only after the venue is confirmed and the recap is published."
+      }
+    ]
+  },
+  "summary": {
+    "deadline": "2026-03-21T09:00:00.000Z",
+    "taskBudgetUsdc": 1200,
+    "missionBudgetUsdc": 1200,
+    "taskCount": 5
+  },
+  "root": {
+    "id": "mission-root",
+    "title": "Nairobi Build Sprint",
+    "role": "planner-agent",
+    "description": "Run a 48-hour community build sprint with venue, logistics, creative, and attendee support handled by specialized agents without giving any one agent blanket wallet power.",
+    "budgetUsdc": 1200,
+    "caveats": [
+      {
+        "kind": "spend-limit",
+        "amountUsdc": 1200,
+        "token": "USDC",
+        "reason": "Task budget is capped at 1200 USDC."
+      },
+      {
+        "kind": "expiry",
+        "deadline": "2026-03-21T09:00:00.000Z",
+        "reason": "Authority expires automatically at the mission deadline."
+      },
+      {
+        "kind": "fan-out",
+        "limit": 5,
+        "reason": "Planner can create at most 5 child delegations."
+      }
+    ],
+    "maxSubdelegationDepth": 1
+  },
+  "nodes": [
+    {
+      "id": "reserve-venue",
+      "title": "Reserve venue",
+      "role": "venue-agent",
+      "description": "Pay the venue deposit after quote approval.",
+      "budgetUsdc": 400,
+      "dependsOn": [],
+      "caveats": [
+        {
+          "kind": "spend-limit",
+          "amountUsdc": 400,
+          "token": "USDC",
+          "reason": "Task budget is capped at 400 USDC."
+        },
+        {
+          "kind": "target-allowlist",
+          "targets": [
+            "venue.safe"
+          ],
+          "reason": "Only approved targets can receive funds or calls."
+        },
+        {
+          "kind": "method-allowlist",
+          "methods": [
+            "transfer"
+          ],
+          "reason": "Only approved method families are executable."
+        },
+        {
+          "kind": "expiry",
+          "deadline": "2026-03-21T09:00:00.000Z",
+          "reason": "Authority expires automatically at the mission deadline."
+        },
+        {
+          "kind": "dependency",
+          "dependsOn": [],
+          "reason": "Task cannot execute until prerequisite tasks are marked complete."
+        },
+        {
+          "kind": "artifact-hash",
+          "required": true,
+          "reason": "A proof-of-completion hash is required before redemption."
+        }
+      ],
+      "allowSubdelegation": false
+    },
+    {
+      "id": "catering",
+      "title": "Handle catering",
+      "role": "logistics-agent",
+      "description": "Purchase food and drinks only after the venue is secured.",
+      "budgetUsdc": 250,
+      "dependsOn": [
+        "reserve-venue"
+      ],
+      "caveats": [
+        {
+          "kind": "spend-limit",
+          "amountUsdc": 250,
+          "token": "USDC",
+          "reason": "Task budget is capped at 250 USDC."
+        },
+        {
+          "kind": "target-allowlist",
+          "targets": [
+            "catering.vendor"
+          ],
+          "reason": "Only approved targets can receive funds or calls."
+        },
+        {
+          "kind": "method-allowlist",
+          "methods": [
+            "transfer"
+          ],
+          "reason": "Only approved method families are executable."
+        },
+        {
+          "kind": "expiry",
+          "deadline": "2026-03-21T09:00:00.000Z",
+          "reason": "Authority expires automatically at the mission deadline."
+        },
+        {
+          "kind": "dependency",
+          "dependsOn": [
+            "reserve-venue"
+          ],
+          "reason": "Task cannot execute until prerequisite tasks are marked complete."
+        },
+        {
+          "kind": "artifact-hash",
+          "required": false,
+          "reason": "A proof-of-completion hash is required before redemption."
+        }
+      ],
+      "allowSubdelegation": false
+    },
+    {
+      "id": "designer-stipend",
+      "title": "Pay designer stipend",
+      "role": "media-agent",
+      "description": "Release designer stipend only when poster assets are delivered.",
+      "budgetUsdc": 150,
+      "dependsOn": [],
+      "caveats": [
+        {
+          "kind": "spend-limit",
+          "amountUsdc": 150,
+          "token": "USDC",
+          "reason": "Task budget is capped at 150 USDC."
+        },
+        {
+          "kind": "target-allowlist",
+          "targets": [
+            "designer.wallet"
+          ],
+          "reason": "Only approved targets can receive funds or calls."
+        },
+        {
+          "kind": "method-allowlist",
+          "methods": [
+            "transfer"
+          ],
+          "reason": "Only approved method families are executable."
+        },
+        {
+          "kind": "expiry",
+          "deadline": "2026-03-21T09:00:00.000Z",
+          "reason": "Authority expires automatically at the mission deadline."
+        },
+        {
+          "kind": "dependency",
+          "dependsOn": [],
+          "reason": "Task cannot execute until prerequisite tasks are marked complete."
+        },
+        {
+          "kind": "artifact-hash",
+          "required": true,
+          "reason": "A proof-of-completion hash is required before redemption."
+        }
+      ],
+      "allowSubdelegation": false
+    },
+    {
+      "id": "publish-recap",
+      "title": "Publish recap",
+      "role": "media-agent",
+      "description": "Publish the recap only after the creative artifact exists.",
+      "budgetUsdc": 100,
+      "dependsOn": [
+        "designer-stipend"
+      ],
+      "caveats": [
+        {
+          "kind": "spend-limit",
+          "amountUsdc": 100,
+          "token": "USDC",
+          "reason": "Task budget is capped at 100 USDC."
+        },
+        {
+          "kind": "target-allowlist",
+          "targets": [
+            "recap.registry"
+          ],
+          "reason": "Only approved targets can receive funds or calls."
+        },
+        {
+          "kind": "method-allowlist",
+          "methods": [
+            "registerCid"
+          ],
+          "reason": "Only approved method families are executable."
+        },
+        {
+          "kind": "expiry",
+          "deadline": "2026-03-21T09:00:00.000Z",
+          "reason": "Authority expires automatically at the mission deadline."
+        },
+        {
+          "kind": "dependency",
+          "dependsOn": [
+            "designer-stipend"
+          ],
+          "reason": "Task cannot execute until prerequisite tasks are marked complete."
+        },
+        {
+          "kind": "artifact-hash",
+          "required": true,
+          "reason": "A proof-of-completion hash is required before redemption."
+        }
+      ],
+      "allowSubdelegation": false
+    },
+    {
+      "id": "attendee-refunds",
+      "title": "Process attendee refunds",
+      "role": "finance-agent",
+      "description": "Refund participants only after the venue is confirmed and the recap is published.",
+      "budgetUsdc": 300,
+      "dependsOn": [
+        "reserve-venue",
+        "publish-recap"
+      ],
+      "caveats": [
+        {
+          "kind": "spend-limit",
+          "amountUsdc": 300,
+          "token": "USDC",
+          "reason": "Task budget is capped at 300 USDC."
+        },
+        {
+          "kind": "target-allowlist",
+          "targets": [
+            "refund.vault"
+          ],
+          "reason": "Only approved targets can receive funds or calls."
+        },
+        {
+          "kind": "method-allowlist",
+          "methods": [
+            "batchTransfer"
+          ],
+          "reason": "Only approved method families are executable."
+        },
+        {
+          "kind": "expiry",
+          "deadline": "2026-03-21T09:00:00.000Z",
+          "reason": "Authority expires automatically at the mission deadline."
+        },
+        {
+          "kind": "dependency",
+          "dependsOn": [
+            "reserve-venue",
+            "publish-recap"
+          ],
+          "reason": "Task cannot execute until prerequisite tasks are marked complete."
+        },
+        {
+          "kind": "artifact-hash",
+          "required": false,
+          "reason": "A proof-of-completion hash is required before redemption."
+        }
+      ],
+      "allowSubdelegation": false
+    }
+  ],
+  "edges": [
+    {
+      "from": "mission-root",
+      "to": "reserve-venue",
+      "label": "subdelegates"
+    },
+    {
+      "from": "mission-root",
+      "to": "catering",
+      "label": "subdelegates"
+    },
+    {
+      "from": "reserve-venue",
+      "to": "catering",
+      "label": "depends-on"
+    },
+    {
+      "from": "mission-root",
+      "to": "designer-stipend",
+      "label": "subdelegates"
+    },
+    {
+      "from": "mission-root",
+      "to": "publish-recap",
+      "label": "subdelegates"
+    },
+    {
+      "from": "designer-stipend",
+      "to": "publish-recap",
+      "label": "depends-on"
+    },
+    {
+      "from": "mission-root",
+      "to": "attendee-refunds",
+      "label": "subdelegates"
+    },
+    {
+      "from": "reserve-venue",
+      "to": "attendee-refunds",
+      "label": "depends-on"
+    },
+    {
+      "from": "publish-recap",
+      "to": "attendee-refunds",
+      "label": "depends-on"
+    }
+  ],
+  "warnings": []
+}

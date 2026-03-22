@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mission Graph</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">MetaMask Delegations Submission</p>
+          <h1>Permissions as a graph.</h1>
+          <p class="lede">
+            A mission compiler for autonomous teams. One human objective becomes a planner
+            delegation, worker subdelegations, and dependency-aware caveats.
+          </p>
+          <div class="hero-tags">
+            <span>Primary: Best Use of Delegations</span>
+            <span>Distinct lane: authorization system</span>
+          </div>
+        </div>
+        <div class="hero-card">
+          <p class="label">Active Mission</p>
+          <h2 id="mission-title"></h2>
+          <p id="mission-objective" class="objective"></p>
+          <div class="stats">
+            <div>
+              <span class="kicker">Budget</span>
+              <strong id="budget"></strong>
+            </div>
+            <div>
+              <span class="kicker">Tasks</span>
+              <strong id="tasks"></strong>
+            </div>
+            <div>
+              <span class="kicker">Warnings</span>
+              <strong id="warnings"></strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid">
+        <article class="panel">
+          <p class="label">Root Delegation</p>
+          <ul id="root-caveats" class="list"></ul>
+        </article>
+
+        <article class="panel">
+          <p class="label">Novel Caveats</p>
+          <ul id="novel-caveats" class="list"></ul>
+        </article>
+
+        <article class="panel wide">
+          <p class="label">Task Nodes</p>
+          <div id="task-grid" class="task-grid"></div>
+        </article>
+
+        <article class="panel">
+          <p class="label">Simulation Results</p>
+          <ul id="simulations" class="list"></ul>
+        </article>
+
+        <article class="panel">
+          <p class="label">Why It Wins</p>
+          <ul id="why" class="list"></ul>
+        </article>
+      </section>
+    </main>
+
+    <script src="./sample-graph.js"></script>
+    <script src="./app.js"></script>
+  </body>
+  </html>

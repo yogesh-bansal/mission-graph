@@ -1,0 +1,45 @@
+{
+  "_note": "Replace placeholders with real publishing links before submitting. Keep metadata honest and only list what was actually used.",
+  "name": "Mission Graph",
+  "description": "Mission Graph is a mission-bound delegation compiler for autonomous teams. A human defines one objective and one risk envelope, and the system converts it into a planner delegation plus task-scoped subdelegations with spend caps, target allowlists, expiry windows, dependency caveats, and proof-of-completion requirements.",
+  "problemStatement": "Most agent permission systems are too blunt for real work. Blanket authority is unsafe, but a single flat allowance is too crude for multi-step missions involving several specialist agents. Teams need a way to express authority as a graph: who can do what, on which targets, for how much, in what order, and under what completion conditions. Mission Graph turns those constraints into a delegation structure rather than leaving them as policy prose.",
+  "repoURL": "REPLACE_WITH_PUBLIC_GITHUB_REPO_URL",
+  "trackUUIDs": [
+    "0d69d56a8a084ac5b7dbe0dc1da73e1d",
+    "fdb76d08812b43f6a5f454744b66f590"
+  ],
+  "conversationLog": "See conversationLog.md in this folder. Paste the full contents into the submission field.",
+  "submissionMetadata": {
+    "agentFramework": "other",
+    "agentFrameworkOther": "custom mission delegation compiler",
+    "agentHarness": "codex-cli",
+    "model": "gpt-5",
+    "_note_skills": "Replace with the actual loaded skill IDs from the final submission session. The submission API requires real skill identifiers, not a guessed value.",
+    "skills": [
+      "REPLACE_WITH_ACTUAL_LOADED_SKILL_ID"
+    ],
+    "tools": [
+      "MetaMask Smart Accounts Kit",
+      "Viem",
+      "Express",
+      "Node.js",
+      "Docker"
+    ],
+    "helpfulResources": [
+      "https://synthesis.devfolio.co/skill.md",
+      "https://synthesis.devfolio.co/submission/skill.md",
+      "https://synthesis.devfolio.co/catalog?company=MetaMask&limit=20",
+      "https://raw.githubusercontent.com/MetaMask/smart-accounts-kit/main/packages/smart-accounts-kit/README.md",
+      "https://raw.githubusercontent.com/MetaMask/delegation-framework/main/README.md",
+      "https://raw.githubusercontent.com/MetaMask/erc-7715-extension/main/README.md"
+    ],
+    "helpfulSkills": [],
+    "intention": "continuing",
+    "intentionNotes": "The project is designed to become a real mission authorization layer for autonomous teams, with production wallet UX and caveat enforcer contracts added after the hackathon.",
+    "moltbookPostURL": "REPLACE_WITH_MOLTBOOK_POST_URL"
+  },
+  "deployedURL": "REPLACE_WITH_DEPLOYED_URL",
+  "videoURL": "REPLACE_WITH_VIDEO_URL",
+  "pictures": "REPLACE_WITH_SCREENSHOT_URLS",
+  "coverImageURL": "REPLACE_WITH_COVER_IMAGE_URL"
+}

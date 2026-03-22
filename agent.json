@@ -1,0 +1,64 @@
+{
+  "$schema": "agent-manifest-v1",
+  "name": "Mission Graph",
+  "description": "Mission-bound subdelegation compiler for autonomous teams. Converts one human objective into a graph of planner and worker delegations with budget, target, expiry, dependency, and proof caveats.",
+  "version": "1.0.0",
+  "operator": {
+    "name": "Omniacs DAO",
+    "url": "https://omniacsdao.xyz",
+    "wallet": "0x_OPERATOR_WALLET_ADDRESS",
+    "_note_wallet": "Placeholder only. Replace with the actual operator wallet at deploy time."
+  },
+  "tracks": [
+    {
+      "uuid": "0d69d56a8a084ac5b7dbe0dc1da73e1d",
+      "name": "Best Use of Delegations",
+      "priority": "primary"
+    },
+    {
+      "uuid": "fdb76d08812b43f6a5f454744b66f590",
+      "name": "Synthesis Open Track",
+      "priority": "secondary"
+    }
+  ],
+  "runtime": {
+    "framework": "custom mission compiler",
+    "language": "Node.js ESM",
+    "sdk": "@metamask/smart-accounts-kit",
+    "chains": [
+      "base-sepolia"
+    ]
+  },
+  "delegationModel": {
+    "rootAuthority": "human mission owner",
+    "plannerRole": "planner-agent",
+    "subdelegations": true,
+    "standard": "Delegation Framework with ERC-7715-style advanced permissions",
+    "novelCaveats": [
+      "dependency",
+      "artifact-hash",
+      "fan-out"
+    ]
+  },
+  "capabilities": [
+    "mission-compilation",
+    "task-scoped-delegation-graph",
+    "permission-request-generation",
+    "action-policy-simulation",
+    "metamask-smart-account-bootstrap"
+  ],
+  "guardrails": {
+    "task_budget_caps": true,
+    "target_allowlists": true,
+    "method_allowlists": true,
+    "expiry_enforced": true,
+    "dependency_enforced": true,
+    "proof_required_for_selected_tasks": true
+  },
+  "deployment": {
+    "env_example_file": ".env.example",
+    "dockerfile": "Dockerfile",
+    "local_demo": "node src/demo.mjs",
+    "server_entrypoint": "node src/index.mjs"
+  }
+}

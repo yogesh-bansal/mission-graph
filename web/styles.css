@@ -1,0 +1,171 @@
+:root {
+  --bg: #0f1720;
+  --bg-soft: #152231;
+  --panel: rgba(17, 27, 39, 0.88);
+  --line: rgba(126, 169, 255, 0.18);
+  --ink: #e8f1ff;
+  --muted: #b4c3da;
+  --accent: #66d0ff;
+  --accent-soft: rgba(102, 208, 255, 0.12);
+  --warn: #ffb15e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Sora", sans-serif;
+  color: var(--ink);
+  background:
+    linear-gradient(rgba(102, 208, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(102, 208, 255, 0.06) 1px, transparent 1px),
+    radial-gradient(circle at top right, rgba(255, 177, 94, 0.15), transparent 20%),
+    linear-gradient(160deg, var(--bg), var(--bg-soft));
+  background-size: 28px 28px, 28px 28px, auto, auto;
+}
+
+.shell {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 32px 0 48px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.hero-copy,
+.hero-card,
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.3);
+}
+
+.hero-copy {
+  padding: 32px;
+}
+
+.hero-card {
+  padding: 24px;
+}
+
+.eyebrow,
+.label,
+.kicker {
+  margin: 0 0 12px;
+  font-family: "IBM Plex Mono", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+  color: var(--accent);
+}
+
+h1,
+h2,
+strong {
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(2.8rem, 7vw, 5.8rem);
+  line-height: 0.92;
+  max-width: 11ch;
+}
+
+.lede,
+.objective,
+.list,
+.task p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.lede {
+  max-width: 56ch;
+  margin-top: 18px;
+}
+
+.hero-tags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.hero-tags span,
+.stats strong {
+  background: var(--accent-soft);
+  padding: 8px 12px;
+  border-radius: 999px;
+}
+
+.stats {
+  display: grid;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.panel {
+  padding: 22px;
+}
+
+.wide {
+  grid-column: 1 / -1;
+}
+
+.list {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.task-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.task {
+  padding: 16px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--line);
+}
+
+.task header {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.88rem;
+}
+
+.badge {
+  color: var(--warn);
+}
+
+@media (max-width: 900px) {
+  .hero,
+  .grid,
+  .task-grid {
+    grid-template-columns: 1fr;
+  }
+
+  h1 {
+    max-width: 13ch;
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "mission-graph",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Mission-bound subdelegation graph for MetaMask Delegations",
+  "scripts": {
+    "demo": "node src/demo.mjs",
+    "server": "node src/index.mjs",
+    "check": "node --check src/index.mjs && node --check src/demo.mjs && node --check src/core/utils.mjs && node --check src/core/graph-compiler.mjs && node --check src/core/policy-engine.mjs && node --check src/delegations/caveats.mjs && node --check src/delegations/permission-request.mjs && node --check src/delegations/metamask-account.mjs && node --check src/server/app.mjs"
+  },
+  "dependencies": {
+    "@metamask/smart-accounts-kit": "0.4.0-beta.1",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "viem": "2.31.4",
+    "zod": "^3.24.2"
+  }
+}
